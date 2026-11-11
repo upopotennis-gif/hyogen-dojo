@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="共通テスト型の文学的文章で問われる表現の効果について、選択肢を指摘と効果に切って読む方法、誤答の型、比喩・象徴・情景・視点・回想・呼称の読み方をまとめた読み物。">
+<title>表現問題の読み方</title>
+<style>
+  :root{
+    --ai:#6e2c2a;
+    --ai-deep:#4a1b1a;
+    --yamabuki:#a8453b;
+    --yamabuki-deep:#7d2e27;
+    --wakatake:#3f8a63;
+    --wakatake-bg:#e6f0e8;
+    --kobai:#b8483f;
+    --kobai-bg:#f6e6e2;
+    --bg:#f3eee3;
+    --surface:#fdfbf6;
+    --surface-2:#eae3d4;
+    --ink:#2a2320;
+    --ink-soft:#6a5e56;
+    --line:#d8cdbb;
+    --shadow:rgba(31,34,38,0.12);
+    --focus:#7d2e27;
+    --shu:#a8453b;
+    --shu-ink:#fff8f2;
+    --kaisen:#ebd5cc;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --ai:#e3a79b;
+      --ai-deep:#f3cfc6;
+      --yamabuki:#e08a7c;
+      --yamabuki-deep:#f0b3a8;
+      --wakatake:#7fc39e;
+      --wakatake-bg:#1c3329;
+      --kobai:#e2938c;
+      --kobai-bg:#3a2320;
+      --bg:#18141a;
+      --surface:#211b22;
+      --surface-2:#2b242c;
+      --ink:#ede6dd;
+      --ink-soft:#aa9f96;
+      --line:#3d3440;
+      --shadow:rgba(0,0,0,0.45);
+      --focus:#e08a7c;
+      --shu:#e08a7c;
+      --shu-ink:#1a0b08;
+      --kaisen:#231d24;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ai:#e3a79b;
+    --ai-deep:#f3cfc6;
+    --yamabuki:#e08a7c;
+    --yamabuki-deep:#f0b3a8;
+    --wakatake:#7fc39e;
+    --wakatake-bg:#1c3329;
+    --kobai:#e2938c;
+    --kobai-bg:#3a2320;
+    --bg:#18141a;
+    --surface:#211b22;
+    --surface-2:#2b242c;
+    --ink:#ede6dd;
+    --ink-soft:#aa9f96;
+    --line:#3d3440;
+    --shadow:rgba(0,0,0,0.45);
+    --focus:#e08a7c;
+    --shu:#e08a7c;
+    --shu-ink:#1a0b08;
+    --kaisen:#231d24;
+  }
+
+  *{ box-sizing:border-box; }
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Zen Maru Gothic','Hiragino Maru Gothic ProN',sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .stage{
+    max-width:680px;
+    margin:0 auto;
+    padding:28px 18px 60px;
+    position:relative;
+  }
+  .stage::before{
+    content:'';
+    position:fixed;
+    inset:0;
+    background-image:radial-gradient(circle at 1px 1px, var(--line) 1px, transparent 0);
+    background-size:16px 16px;
+    opacity:.22;
+    mix-blend-mode:multiply;
+    pointer-events:none;
+    z-index:0;
+  }
+  :root:not([data-theme="light"]) .stage::before{ mix-blend-mode:screen; opacity:.10; }
+  :root[data-theme="dark"] .stage::before{ mix-blend-mode:screen; opacity:.10; }
+
+  .stage > *{ position:relative; z-index:1; }
+
+  .rod{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin:0 auto;
+  }
+  .rod::before,.rod::after{
+    content:'';
+    flex:1;
+    height:5px;
+    border-radius:3px;
+    background:var(--ai-deep);
+  }
+  .rod .knob{
+    width:14px; height:14px; border-radius:50%;
+    background:var(--yamabuki);
+    box-shadow:0 0 0 2px var(--surface);
+    flex:none;
+  }
+
+  header.masthead{ text-align:center; padding:6px 0 22px; }
+  header.masthead .rod{ margin-bottom:16px; }
+  h1{
+    font-family:'Shippori Mincho', serif;
+    font-weight:800;
+    font-size:clamp(1.6rem, 1.1rem + 3vw, 2.3rem);
+    letter-spacing:.03em;
+    margin:0 0 8px;
+    text-wrap:balance;
+  }
+  header.masthead p{
+    margin:0;
+    color:var(--ink-soft);
+    font-size:.92rem;
+    line-height:1.75;
+  }
+
+  section{ display:block; }
+  section[hidden]{ display:none !important; }
+
+  .card{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:22px 20px;
+    box-shadow:0 3px 14px var(--shadow);
+  }
+  .card + .card{ margin-top:16px; }
+
+  .steps{
+    list-style:none;
+    margin:0 0 20px;
+    padding:0;
+    display:grid;
+    gap:8px;
+    font-size:.9rem;
+    color:var(--ink-soft);
+  }
+  .steps li{ display:flex; gap:10px; align-items:baseline; }
+  .steps .num{
+    font-family:'Shippori Mincho',serif;
+    color:var(--yamabuki-deep);
+    font-weight:700;
+    flex:none;
+    width:1.4em;
+  }
+
+  label.field-label{
+    display:block;
+    font-weight:700;
+    margin-bottom:4px;
+    font-size:.95rem;
+  }
+  .field-hint{
+    font-size:.8rem;
+    color:var(--ink-soft);
+    margin:0 0 10px;
+  }
+
+  .unit-group{ margin-bottom:18px; }
+  .unit-group:last-child{ margin-bottom:0; }
+  .unit-group h3{
+    font-family:'Shippori Mincho',serif;
+    font-size:.95rem;
+    font-weight:700;
+    color:var(--ai);
+    margin:0 0 8px;
+    padding-bottom:6px;
+    border-bottom:1px solid var(--line);
+  }
+  .chips{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+  .chip{
+    border:1.5px solid var(--line);
+    background:var(--bg);
+    color:var(--ink);
+    border-radius:999px;
+    padding:8px 14px;
+    font-size:.84rem;
+    line-height:1.4;
+    cursor:pointer;
+    font-family:'Zen Maru Gothic',sans-serif;
+    text-align:left;
+  }
+  .chip:hover{ border-color:var(--ai); }
+  .chip.active{ background:var(--ai); color:var(--surface); border-color:var(--ai); font-weight:700; }
+
+  .selected-unit-box{
+    margin-top:18px;
+    padding:12px 14px;
+    background:var(--surface-2);
+    border-radius:8px;
+    font-size:.88rem;
+  }
+  .selected-unit-box strong{
+    font-family:'Shippori Mincho',serif;
+    color:var(--ai);
+  }
+
+  textarea:focus-visible, button:focus-visible, .choice:focus-visible, .chip:focus-visible, input:focus-visible{
+    outline:3px solid var(--focus);
+    outline-offset:2px;
+  }
+
+  .actions{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    margin-top:20px;
+  }
+  button.btn{
+    font-family:'Zen Maru Gothic',sans-serif;
+    font-weight:700;
+    font-size:1.02rem;
+    padding:15px 18px;
+    border-radius:10px;
+    border:1px solid transparent;
+    cursor:pointer;
+    transition:transform .12s ease, filter .12s ease;
+  }
+  @media (prefers-reduced-motion: reduce){ button.btn{ transition:none; } }
+  button.btn:active{ transform:translateY(1px); }
+  button.btn:disabled{ opacity:.5; cursor:not-allowed; transform:none; }
+  .btn-primary{
+    background:var(--yamabuki);
+    color:#2a1c04;
+    box-shadow:0 3px 0 var(--yamabuki-deep);
+  }
+  :root:not([data-theme="light"]) .btn-primary{ color:#241a02; }
+  :root[data-theme="dark"] .btn-primary{ color:#241a02; }
+  .btn-primary:hover:not(:disabled){ filter:brightness(1.04); }
+  .btn-secondary{
+    background:transparent;
+    color:var(--ai);
+    border-color:var(--ai);
+  }
+  .btn-secondary:hover:not(:disabled){ background:var(--surface-2); }
+  .btn-ghost{
+    background:transparent;
+    color:var(--ink-soft);
+    border:none;
+    text-decoration:underline;
+    padding:8px;
+    font-size:.9rem;
+  }
+
+  #error-banner[hidden]{ display:none !important; }
+  #error-banner{
+    background:var(--kobai-bg);
+    border:1px solid var(--kobai);
+    color:var(--kobai);
+    border-radius:8px;
+    padding:12px 14px;
+    font-size:.88rem;
+    margin-bottom:14px;
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+    align-items:flex-start;
+  }
+  #error-banner button{
+    background:none; border:none; color:inherit; font-weight:700; cursor:pointer; font-size:1rem; line-height:1;
+  }
+
+  .quiz-progress{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    margin-bottom:6px;
+    font-family:'Shippori Mincho',serif;
+  }
+  .quiz-progress .count{ font-size:1.1rem; font-weight:700; font-variant-numeric:tabular-nums; }
+  .quiz-progress .score{ font-size:.85rem; color:var(--ink-soft); font-family:'Zen Maru Gothic',sans-serif; }
+  .quiz-unit{
+    font-size:.8rem;
+    color:var(--ink-soft);
+    margin:0 0 14px;
+  }
+  .passage-box{
+    background:var(--surface-2);
+    border-radius:8px;
+    padding:14px 16px;
+    margin:0 0 18px;
+  }
+  .passage-box .label{
+    font-weight:700;
+    color:var(--ai);
+    display:block;
+    margin-bottom:6px;
+    font-size:.78rem;
+    letter-spacing:.04em;
+  }
+  .passage-box p{
+    font-family:'Shippori Mincho',serif;
+    font-size:.98rem;
+    line-height:1.9;
+    margin:0;
+    white-space:pre-wrap;
+  }
+  .dots{ display:flex; gap:5px; margin-bottom:18px; flex-wrap:wrap; }
+  .dots span{ width:9px; height:9px; border-radius:50%; background:var(--line); }
+  .dots span.done-correct{ background:var(--wakatake); }
+  .dots span.done-wrong{ background:var(--kobai); }
+  .dots span.current{ background:var(--yamabuki); }
+
+  .question-text{
+    font-family:'Shippori Mincho',serif;
+    font-size:clamp(1.05rem, .9rem + 1vw, 1.3rem);
+    line-height:1.85;
+    margin:0 0 20px;
+    text-wrap:balance;
+  }
+
+  .choices{ display:grid; gap:10px; }
+  .choice{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    text-align:left;
+    width:100%;
+    background:var(--bg);
+    border:1.5px solid var(--line);
+    border-radius:10px;
+    padding:14px 16px;
+    font-family:'Zen Maru Gothic',sans-serif;
+    font-size:1rem;
+    line-height:1.6;
+    color:var(--ink);
+    cursor:pointer;
+  }
+  .choice:hover:not(:disabled){ border-color:var(--ai); }
+  .choice .badge{
+    flex:none;
+    width:28px; height:28px;
+    border-radius:50%;
+    background:var(--surface-2);
+    color:var(--ink-soft);
+    display:flex; align-items:center; justify-content:center;
+    font-weight:700; font-size:.85rem;
+    font-family:'Shippori Mincho',serif;
+  }
+  .choice:disabled{ cursor:default; }
+  .choice.correct{ background:var(--wakatake-bg); border-color:var(--wakatake); }
+  .choice.correct .badge{ background:var(--wakatake); color:#fff; }
+  .choice.incorrect{ background:var(--kobai-bg); border-color:var(--kobai); }
+  .choice.incorrect .badge{ background:var(--kobai); color:#fff; }
+
+  .feedback{
+    margin-top:18px;
+    padding-top:16px;
+    border-top:1px dashed var(--line);
+  }
+  .feedback .verdict{
+    font-family:'Shippori Mincho',serif;
+    font-weight:800;
+    font-size:1.15rem;
+    margin:0 0 10px;
+  }
+  .feedback .verdict.correct{ color:var(--wakatake); }
+  .feedback .verdict.incorrect{ color:var(--kobai); }
+  .feedback .explanation{ font-size:.95rem; line-height:1.8; margin:0 0 12px; }
+  .feedback .translation{
+    background:var(--surface-2);
+    border-radius:8px;
+    padding:12px 14px;
+    font-size:.9rem;
+    line-height:1.8;
+  }
+  .feedback .translation .label{
+    font-weight:700;
+    color:var(--ai);
+    display:block;
+    margin-bottom:4px;
+    font-size:.78rem;
+    letter-spacing:.04em;
+  }
+
+  .result-head{ text-align:center; padding:8px 0 22px; }
+  .stamp{
+    width:118px; height:118px;
+    margin:0 auto 16px;
+    border-radius:50%;
+    border:3px solid var(--kobai);
+    box-shadow:inset 0 0 0 3px var(--surface), 0 3px 10px var(--shadow);
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    transform:rotate(-5deg);
+    color:var(--kobai);
+    font-family:'Shippori Mincho',serif;
+  }
+  .stamp .frac{ font-size:1.7rem; font-weight:800; line-height:1; font-variant-numeric:tabular-nums; }
+  .stamp .of{ font-size:.7rem; margin-top:2px; }
+  .result-message{ font-size:.98rem; line-height:1.8; color:var(--ink-soft); max-width:32em; margin:0 auto; }
+
+  .guide-content{
+    font-size:.98rem;
+    line-height:1.95;
+  }
+  .guide-content h1,.guide-content h2,.guide-content h3{
+    font-family:'Shippori Mincho',serif;
+    margin:1.2em 0 .5em;
+    line-height:1.5;
+  }
+  .guide-content h1{ font-size:1.25rem; }
+  .guide-content h2{ font-size:1.12rem; }
+  .guide-content h3{ font-size:1.02rem; }
+  .guide-content p{ margin:0 0 .9em; }
+  .guide-content ul,.guide-content ol{ margin:0 0 1em; padding-left:1.4em; }
+  .guide-content li{ margin-bottom:.4em; }
+  .guide-content strong{ color:var(--ai); }
+  .guide-content code{ background:var(--surface-2); padding:.1em .3em; border-radius:4px; }
+  .thinking{ color:var(--ink-soft); }
+
+  footer{
+    text-align:center;
+    font-size:.75rem;
+    color:var(--ink-soft);
+    margin-top:34px;
+    line-height:1.7;
+  }
+
+
+/* ==== 記録機能 追加分 ==== */
+.sub-actions{ display:flex; flex-wrap:wrap; gap:10px; margin-top:14px; }
+.stat-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(130px,1fr)); gap:12px; margin-bottom:22px; }
+.stat-tile{ border:1px solid var(--line); border-radius:10px; padding:12px 14px; background:var(--bg); }
+.stat-tile .k{ display:block; font-size:.74rem; color:var(--ink-soft); letter-spacing:.06em; }
+.stat-tile .v{ display:block; font-size:1.5rem; font-weight:700; color:var(--ai); font-variant-numeric:tabular-nums; margin-top:2px; }
+.stat-tile .v small{ font-size:.8rem; font-weight:400; color:var(--ink-soft); margin-left:2px; }
+.stats-empty{ color:var(--ink-soft); padding:18px 0; }
+.stat-table{ width:100%; border-collapse:collapse; font-size:.9rem; }
+.stat-table th{ text-align:left; font-size:.72rem; letter-spacing:.08em; color:var(--ink-soft); border-bottom:1px solid var(--line); padding:6px 8px; font-weight:700; }
+.stat-table td{ border-bottom:1px solid var(--line); padding:8px; vertical-align:middle; }
+.stat-table td.num{ text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap; }
+.rate-bar{ display:block; position:relative; height:8px; border-radius:4px; background:var(--line); min-width:70px; }
+.rate-bar i{ position:absolute; left:0; top:0; bottom:0; border-radius:4px; background:var(--wakatake); }
+.rate-bar i.low{ background:var(--kobai); }
+.rate-bar i.mid{ background:var(--yamabuki); }
+.cal{ display:grid; grid-template-columns:repeat(7,1fr); gap:4px; max-width:330px; }
+.cal span{ aspect-ratio:1; display:flex; align-items:center; justify-content:center; font-size:.74rem;
+  border-radius:6px; color:var(--ink-soft); font-variant-numeric:tabular-nums; }
+.cal span.head{ color:var(--ink-soft); font-size:.68rem; aspect-ratio:auto; padding-bottom:2px; }
+.cal span.on{ background:var(--wakatake); color:#fff; font-weight:700; }
+.cal span.today{ outline:2px solid var(--yamabuki); outline-offset:-2px; }
+.stats-section-title{ font-size:.95rem; font-weight:700; margin:26px 0 10px; color:var(--ai); }
+.wrongbox-line{ display:flex; flex-wrap:wrap; align-items:center; gap:12px; margin-top:6px; }
+.privacy-note{ font-size:.76rem; color:var(--ink-soft); margin-top:26px; line-height:1.7; }
+
+/* ==== 狭い画面（スマホ）の調整 ==== */
+@media (max-width:400px){
+  h1{ font-size:1.5rem; letter-spacing:.01em; }
+  .stage{ padding:20px 14px 48px; }
+  .card{ padding:18px 15px; }
+  .chip{ font-size:.82rem; padding:8px 12px; }
+  .stat-grid{ grid-template-columns:repeat(2,1fr); }
+}
+#btn-next-question{ scroll-margin-bottom:24px; }
+
+/* ==== 道場の切り替え ==== */
+nav.sister{ display:flex; justify-content:center; gap:6px; flex-wrap:wrap; margin:0 0 18px; }
+nav.sister a{ font-size:.82rem; padding:6px 14px; border-radius:999px; border:1px solid var(--line);
+  color:var(--ink-soft); text-decoration:none; background:var(--surface); }
+nav.sister a:hover{ border-color:var(--ai); color:var(--ai); }
+nav.sister a[aria-current]{ background:var(--ai); border-color:var(--ai); color:var(--surface); font-weight:700; }
+
+/* ==== 表現道場の装い: 舞台と照明 ==== */
+/* 配色：緞帳の深紅（--ai）とスポットライトの琥珀（--shu）。暗い客席はダークで */
+:root{
+  --ai:#7a1f2b; --ai-deep:#561520;
+  --yamabuki:#b7791f; --yamabuki-deep:#8a5a12;
+  --bg:#f2ede6; --surface:#fffcf7; --surface-2:#ece4d8;
+  --ink:#231c1e; --ink-soft:#6a5d60; --line:#ddd1c3;
+  --focus:#8a5a12; --shu:#b7791f; --shu-ink:#fffaf0;
+  --kaisen:rgba(255,206,120,.42); --valance:#7a1f2b;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ai:#e8909a; --ai-deep:#f4c1c7;
+    --yamabuki:#f0b54a; --yamabuki-deep:#f6cd80;
+    --bg:#121014; --surface:#1c181d; --surface-2:#262027;
+    --ink:#efe8e2; --ink-soft:#aa9e98; --line:#3a3139;
+    --focus:#f0b54a; --shu:#f0b54a; --shu-ink:#1c140a;
+    --kaisen:rgba(255,196,96,.16); --valance:#8e2a37;
+  }
+}
+:root[data-theme="dark"]{
+  --ai:#e8909a; --ai-deep:#f4c1c7;
+  --yamabuki:#f0b54a; --yamabuki-deep:#f6cd80;
+  --bg:#121014; --surface:#1c181d; --surface-2:#262027;
+  --ink:#efe8e2; --ink-soft:#aa9e98; --line:#3a3139;
+  --focus:#f0b54a; --shu:#f0b54a; --shu-ink:#1c140a;
+  --kaisen:rgba(255,196,96,.16); --valance:#8e2a37;
+}
+/* 舞台の上から差すスポットライト */
+.stage::before,
+:root:not([data-theme="light"]) .stage::before,
+:root[data-theme="dark"] .stage::before{
+  background-image:radial-gradient(ellipse 70% 460px at 50% -80px, var(--kaisen), transparent 75%);
+  background-size:auto; background-repeat:no-repeat;
+  opacity:1; mix-blend-mode:normal;
+}
+/* 見出しの上下に緞帳の飾り幕（半円のひだ） */
+.rod{ gap:0; }
+.rod::before,.rod::after{
+  height:11px; border-radius:0; opacity:1;
+  background:linear-gradient(var(--valance),var(--valance)) top/100% 3px no-repeat,
+    radial-gradient(circle at 9px 0, var(--valance) 8px, transparent 8.5px) 0 0/18px 11px repeat-x;
+}
+.rod .knob{ display:none; }
+header.masthead h1{ font-family:'Shippori Mincho B1','Shippori Mincho',serif; font-weight:800; letter-spacing:.1em; }
+header.masthead h1::after{ content:"表"; display:inline-block; margin-left:.4em; width:1.5em; height:1.5em; line-height:1.5em;
+  text-align:center; font-size:.48em; vertical-align:.5em; color:#fff; background:var(--ai); border-radius:50%; letter-spacing:0;
+  box-shadow:0 0 0 3px var(--surface-2), 0 0 22px var(--kaisen); }
+.card{ border-radius:6px; }
+.btn-primary,
+:root:not([data-theme="light"]) .btn-primary,
+:root[data-theme="dark"] .btn-primary{
+  background:var(--ai); color:var(--surface); box-shadow:0 3px 0 var(--ai-deep);
+}
+.dots span.current{ background:var(--shu); }
+.stamp{
+  border-radius:50%; transform:rotate(-6deg);
+  background:transparent; color:var(--shu); border:3px double var(--shu);
+}
+.unit-group h3{ border-bottom-style:dashed; }
+.cal span.today{ outline-color:var(--shu); }
+/* 本文の抜き出しは明朝でゆったり。傍線部には琥珀の光を当てる */
+.question-text{ font-family:'Shippori Mincho B1','Shippori Mincho',serif; font-size:1.02rem; line-height:2.05; letter-spacing:.02em; }
+.question-text .bosen{ text-decoration-color:var(--ai); background:linear-gradient(transparent 55%, var(--kaisen) 55%); }
+.question-text .maeoki{ display:block; font-family:'Zen Maru Gothic',sans-serif; font-size:.85rem; line-height:1.7;
+  color:var(--ink-soft); background:var(--surface-2); border-radius:4px; padding:6px 10px; margin:0 0 10px; letter-spacing:0; }
+/* スマホ：字は14px以上、押す所は44px以上（道場の決まり） */
+@media (max-width:760px){
+  nav.sister a{ font-size:14px !important; min-height:44px; display:inline-flex; align-items:center; }
+  .chip{ font-size:14px; min-height:44px; }
+  footer, footer *{ font-size:14px !important; }
+  .toc h2, .chap th, .chap figcaption, figure.ex figcaption{ font-size:14px !important; }
+  a.backtop{ font-size:14px; display:inline-flex; align-items:center; min-height:44px; }
+}
+
+
+.wraph{max-width:820px;margin:0 auto;padding:28px 20px 64px}
+.toc{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 20px;margin:0 0 30px}
+.toc h2{font-size:.85rem;letter-spacing:.1em;color:var(--ink-soft);margin:0 0 10px;font-family:var(--sans,inherit)}
+.toc ol{margin:0;padding-left:1.4em}
+.toc li{margin:5px 0}
+.toc a{color:var(--ai);text-decoration:none}
+.toc a:hover{text-decoration:underline}
+.chap{margin:0 0 46px;scroll-margin-top:16px}
+.chap>h2:first-child{font-size:1.5rem;border-bottom:2px solid var(--ai);padding-bottom:8px;margin:0 0 18px}
+.chap h2{font-family:'Shippori Mincho',serif;font-size:1.25rem;margin:34px 0 12px}
+.chap h3{font-size:1.02rem;margin:22px 0 8px;color:var(--ai)}
+.chap p{line-height:1.95;margin:0 0 1em}
+.chap ul{line-height:1.9;padding-left:1.3em}
+.chap table{width:100%;border-collapse:collapse;font-size:.92rem;line-height:1.7;margin:0 0 1.2em}
+.chap th,.chap td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}
+.chap th{background:var(--surface-2,rgba(0,0,0,.04));font-size:.82rem;color:var(--ink-soft)}
+.chap blockquote{margin:0 0 1.2em;padding:2px 0 2px 16px;border-left:3px solid var(--yamabuki,#B8860B);
+  color:var(--ink-soft);font-family:'Shippori Mincho',serif}
+.chap a{color:var(--ai)}
+.chap figure.ex{margin:0 0 1.3em;padding:12px 16px;background:var(--surface);border:1px solid var(--line);
+  border-left:3px solid var(--shu);border-radius:4px}
+.chap figure.ex blockquote{border:none;margin:0;padding:0;color:var(--ink);font-family:'Shippori Mincho B1','Shippori Mincho',serif;
+  line-height:2}
+.chap figure.ex figcaption{text-align:right;font-size:.78rem;color:var(--ink-soft);margin-top:4px}
+.backtop{display:block;text-align:right;font-size:.8rem;color:var(--ink-soft);text-decoration:none;margin-top:-30px}
+nav.sister{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;margin:0 0 22px}
+nav.sister a{font-size:.82rem;padding:6px 14px;border-radius:999px;border:1px solid var(--line);
+  color:var(--ink-soft);text-decoration:none;background:var(--surface)}
+nav.sister a[aria-current]{background:var(--ai);border-color:var(--ai);color:var(--surface);font-weight:700}
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700;800&family=Shippori+Mincho+B1:wght@600;800&family=Zen+Maru+Gothic:wght@400;500;700&display=swap">
+</head>
+<body>
+<div class="stage"><div class="wraph" id="top">
+  <header class="masthead">
+    <div class="rod"><span class="knob"></span><span class="knob"></span></div>
+    <h1>表現問題の読み方</h1>
+    <p>表現問題の選択肢をどう読むかを、順番にまとめました。色のついた語を押すと、表現技法辞典のその項目が開きます。</p>
+    <div class="rod" style="margin-top:16px"><span class="knob"></span><span class="knob"></span></div>
+  </header>
+  <nav class="sister" aria-label="道場の切り替え"><a href="https://upopotennis-gif.github.io/kokugo-dojo/">国語道場トップ</a><a href="./">表現技法辞典</a><a href="enshu.html">効果の演習</a><a href="haikei.html" aria-current="page">表現問題の読み方</a></nav>
+  <nav class="toc" aria-label="目次"><h2>目次</h2><ol><li><a href="#shikumi">表現問題の仕組み — 選択肢は「指摘」と「効果」でできている</a></li><li><a href="#gotou">誤答の五つの型 — 効果のずれ・言い過ぎ・本文にない・本文と逆・指摘の誤り</a></li><li><a href="#hiyu">比喩を読む — 何を、何に、どこが、この場面で</a></li><li><a href="#mono">ものと風景を読む — 象徴・情景・色と音</a></li><li><a href="#katari">語りと時間を読む — 視点・回想・呼び方</a></li><li><a href="#tejun">本番の手順 — 問いの向き・印のつけ方・確かめ方</a></li></ol></nav>
+<section class="chap" id="shikumi"><h2>表現問題の仕組み — 選択肢は「指摘」と「効果」でできている</h2>
+<p>小説や随筆の問題には、たいてい「この文章の表現の説明として適当なもの（適当でないもの）を選べ」という設問がつきます。ここで多くの人が、技法の名前を当てる問題だと思いこみます。でも、名前を言えるだけでは正解は選べません。この章では、表現問題の選択肢がどんな部品でできているかを確かめます。</p>
+<h2>選択肢は二つの部品でできている</h2>
+<p>表現問題の選択肢は、ほとんどが次の形をしています。</p>
+<blockquote>〈指摘〉…ことで、〈効果〉…を表している。</blockquote>
+<table><thead><tr><th>部品</th><th>中身</th><th>確かめ方</th></tr></thead><tbody><tr><td><b>指摘</b></td><td>どんな表現が使われているか（比喩、くり返し、呼び方の変化 など）</td><td>本文を見れば、あるかないかが分かる</td></tr><tr><td><b>効果</b></td><td>その表現が、場面の何を表しているか（心情、関係、場面の空気 など）</td><td>本文の事実で裏づけられるかを考える</td></tr></tbody></table>
+<p>まず選択肢を、この二つのところで<b>切る</b>ことが出発点です。</p>
+<h2>差がつくのは「効果」のほう</h2>
+<p>指摘のほうは、本文を見れば誤りかどうかがすぐ分かります。だから作問者は、指摘を正しくしておいて、<b>効果の部分だけを少しずらした誤答</b>をよく作ります。「比喩が使われている」はその通りなのに、「その比喩が表しているもの」が違う、という選択肢です。</p>
+<p>問題集の文学的文章24題を調べると、比喩を問う選択肢のおよそ半分が本文に合わないものでした。その多くは、比喩の指摘は正しく、効果の説明がずれていました。</p>
+<blockquote>名前を当てる問題ではありません。その表現がこの場面で何を表しているかを、本文の言葉で言えれば解けます。</blockquote>
+<h2>例で確かめる</h2>
+<p>芥川龍之介「蜜柑」の終わり近く、汽車の窓から見た一瞬の光景は、次のように書かれます。</p>
+<figure class="ex"><blockquote>暮色を帯びた町はづれの踏切りと、小鳥のやうに声を挙げた三人の子供たちと、さうしてその上に乱落する鮮な蜜柑の色と――すべては汽車の窓の外に、瞬く暇もなく通り過ぎた。</blockquote><figcaption>―― 芥川『蜜柑』</figcaption></figure>
+<p>ここについて、次の二つの説明を比べてみます。</p>
+<ul><li>「小鳥のやうに」という<b><a href="./?w=%E7%9B%B4%E5%96%A9">直喩</a></b>によって、子供たちが姉を見送るときの高く明るい声を表している。</li><li>「小鳥のやうに」という<b>直喩</b>によって、子供たちがやがて親元を離れて飛び立っていく運命を暗示している。</li></ul>
+<p>指摘（直喩がある）はどちらも正しいのです。違うのは効果です。「声を挙げた」にかかる比喩なので、表しているのは声のようすです。二つ目の「運命を暗示」は、本文のどこにも裏づけがありません。こうして<b>効果を本文の事実で確かめる</b>のが、表現問題の解き方の中心です。</p>
+<h2>この道場の使い方</h2>
+<ul><li><b>表現技法辞典</b>で、技法の見分け方と、その例でどんな効果が出ているかを読む</li><li><b>効果の演習</b>で、本文の一節に引いた傍線部の効果を、10問ずつ解く</li><li>このページの次の章で、<b>誤答の型</b>を先に知っておく。型を知っていると、選択肢のどこを疑えばよいかが分かります</li></ul>
+<a class="backtop" href="#top">↑ 目次へ</a></section>
+<section class="chap" id="gotou"><h2>誤答の五つの型 — 効果のずれ・言い過ぎ・本文にない・本文と逆・指摘の誤り</h2>
+<p>表現問題の誤答は、でたらめに作られているわけではありません。生徒がやりがちな読み違いを、わざと選択肢にしています。型は大きく五つです。型を知っておくと、選択肢のどこに線を引いて疑えばよいかが分かります。</p>
+<h2>五つの型</h2>
+<table><thead><tr><th>型</th><th>どこがずれるか</th><th>見抜き方</th></tr></thead><tbody><tr><td><b>効果のずれ</b></td><td>指摘は正しいが、表しているものが違う</td><td>たとえられているもの、主語、誰の気持ちかを確かめる</td></tr><tr><td><b>言い過ぎ</b></td><td>本文にない強い心情や断定を足す</td><td>「恐怖」「絶望」「後悔」「すべて」「決して」に印をつける</td></tr><tr><td><b>本文にない</b></td><td>書かれていない事情・意図・将来を持ちこむ</td><td>「暗示」「意図して」「わざと」とあれば、その先が本文にあるかを見る</td></tr><tr><td><b>本文と逆</b></td><td>心情や関係の向きを反対にする</td><td>場面の結末まで読んで、向きを確かめる</td></tr><tr><td><b>指摘の誤り</b></td><td>技法の名前や見分けを取り違える</td><td>直喩と隠喩、比喩と比喩でないもの、一人称と三人称</td></tr></tbody></table>
+<h2>効果のずれ</h2>
+<p>いちばん多い型です。「〜という比喩によって」は正しいのに、「〜を表している」の中身がずれています。たとえば、着物の裾が広がった形を扇にたとえた比喩について、「主人公の不安な思いを表している」と説明するような選択肢です。比喩が表しているのは<b>目に見える形</b>であって、心の中ではありません。</p>
+<blockquote>比喩の選択肢は、まず「何をたとえているか」を本文で決めてから読む。それだけで効果のずれの多くは見抜けます。</blockquote>
+<h2>言い過ぎ</h2>
+<p>本文が「少し傷ついた」なら、選択肢が「憤りを抱いた」と書いた時点で誤りです。心情の<b>種類</b>だけでなく、<b>強さ</b>もそろえて確かめます。「驚き」を「恐怖」に、「さびしさ」を「絶望」に、と一段強めるのが典型です。</p>
+<h2>本文にない</h2>
+<p>「〜を暗示している」「〜という意図がうかがえる」という言い方は要注意です。暗示されている先の出来事や、人物の意図が、本文のどこかに書かれているかを探します。書かれていなければ、それは読み手の想像です。</p>
+<h2>本文と逆</h2>
+<p><a href="./?w=%E8%B1%A1%E5%BE%B4">象徴</a>や情景の問題によく出ます。たとえば、海に沈むものが「ほぐれていく」と書かれていても、人と人との関係までほぐれたとは限りません。<b>結末で人物がどうしたか</b>（背を向けた、黙った、去った）まで読んで、向きを確かめます。</p>
+<h2>指摘の誤り</h2>
+<p>数は少ないものの、見落とすと痛い型です。「ように」のない比喩を<a href="./?w=%E7%9B%B4%E5%96%A9">直喩</a>と言う、語り手が「私」なのに「第三者の視点から客観的に」と言う、などです。指摘は本文で確かめられるので、ここで落とさないようにしましょう。</p>
+<h2>問いの向きにも注意</h2>
+<p>「適当なもの」を選ぶのか、「<b>適当でないもの</b>」を選ぶのか。二つ選ぶのか、一つか。表現問題では「適当でないもの」型がかなり多く出ます。問いの文に丸をつけてから選択肢を読む習慣をつけましょう。</p>
+<a class="backtop" href="#top">↑ 目次へ</a></section>
+<section class="chap" id="hiyu"><h2>比喩を読む — 何を、何に、どこが、この場面で</h2>
+<p>表現問題でいちばんよく問われるのが比喩です。比喩の問題は、次の四つの手順で読めば、ほとんど迷いません。</p>
+<h2>四つの手順</h2>
+<table><thead><tr><th>手順</th><th>問い</th><th>「小鳥のやうに声を挙げた三人の子供たち」</th></tr></thead><tbody><tr><td>1</td><td><b>何を</b>たとえているか</td><td>子供たちの声</td></tr><tr><td>2</td><td><b>何に</b>たとえているか</td><td>小鳥</td></tr><tr><td>3</td><td><b>どこが</b>似ているか</td><td>高く、にぎやかで、空へ向かうような声</td></tr><tr><td>4</td><td>この場面で<b>何を伝える</b>か</td><td>姉を見送る子供たちの、はずんだ明るさ</td></tr></tbody></table>
+<p>手順1を飛ばすと、効果のずれにひっかかります。「声」をたとえているのに、「子供たちの将来」や「主人公の心」の説明にすり替わっていないかを見ます。</p>
+<h2>直喩・隠喩・擬人法の見分け</h2>
+<table><thead><tr><th>技法</th><th>見分け方</th><th>読むときの問い</th></tr></thead><tbody><tr><td>直喩</td><td>「ようだ」「みたい」「まるで」などで、たとえだと明示する</td><td>何と何の、どこが似ているか</td></tr><tr><td>隠喩</td><td>明示せずに、別のものとして言い切る</td><td>言い切られたものは何を指しているか</td></tr><tr><td>擬人法</td><td>人でないものが、人のようにふるまう</td><td>なぜ、ものを主語にしたのか</td></tr></tbody></table>
+<h2>比喩は、まわりの言葉で確かめる</h2>
+<p>比喩の効果は、比喩だけを見て考えるのではなく、<b>前後に同じイメージが続いているか</b>で確かめます。たとえば「渦」にたとえた後に「呑まれる」「巻かれる」が続いていれば、場の勢いに人がのみこまれていく様子を表している、と本文で言えます。</p>
+<p>もう一つ、比喩が<b>場面の中でどこへ向かうか</b>も見ます。人生を「森」にたとえた文章なら、いまその人物は森の入口にいるのか、中を歩いているのか、外へ出ようとしているのかを、本文の言葉で決めます。</p>
+<h2>夢の中の比喩</h2>
+<p>漱石『夢十夜』の第一夜では、死んだ女を待ちつづけた男の前に、一本の百合が咲きます。</p>
+<figure class="ex"><blockquote>真白な百合が鼻の先で骨に徹えるほど匂った。</blockquote><figcaption>―― 漱石『夢十夜』</figcaption></figure>
+<p>「骨に徹える」は、匂いの強さを体の奥まで届く感覚で表した言い方です。花の白さと匂いが、長く待った時間の果てに訪れたものの清らかさと強さを伝えています。ここで「男が花に恐怖を覚えた」と説明すれば言い過ぎ、「女が二度と戻らないことを表す」と説明すれば本文と逆になります。</p>
+<blockquote>比喩の効果を一言で言う練習をしましょう。「〜のような…で、〜を表している」の形で、本文の言葉を使って言えれば十分です。</blockquote>
+<a class="backtop" href="#top">↑ 目次へ</a></section>
+<section class="chap" id="mono"><h2>ものと風景を読む — 象徴・情景・色と音</h2>
+<p>本文に出てくる「もの」や「風景」が、人物の気持ちや関係を背負うことがあります。数は多くありませんが、出てくるとほぼ必ず問われます。</p>
+<h2>象徴と比喩の違い</h2>
+<p>比喩は、言葉の上で「AをBにたとえる」表現です。<b><a href="./?w=%E8%B1%A1%E5%BE%B4">象徴</a></b>は、本文の中に<b>実際にあるもの</b>が、それ以上の意味を担う表現です。</p>
+<table><thead><tr><th></th><th>比喩</th><th>象徴</th></tr></thead><tbody><tr><td>もの</td><td>たとえとして持ち出される（本文の場面にはない）</td><td>場面に本当にある</td></tr><tr><td>見つけ方</td><td>「ように」や言い切りの形</td><td>同じものが何度も出る、結末で丁寧に描かれる、人物の視線が集まる</td></tr></tbody></table>
+<h2>象徴を見つける三つの目印</h2>
+<ul><li>同じものが<b>場面をまたいで</b>出てくる</li><li>結末の近くで、<b>わざわざ丁寧に</b>描かれる</li><li>人物たちの<b>視線が集まる</b></li></ul>
+<p>芥川龍之介「蜜柑」では、それまで不快な存在として描かれていた小娘が、窓から蜜柑を投げる場面で一変します。</p>
+<figure class="ex"><blockquote>窓から半身を乗り出してゐた例の娘が、あの霜焼けの手をつとのばして、勢よく左右に振つたと思ふと、忽ち心を躍らすばかり暖な日の色に染まつてゐる蜜柑が凡そ五つ六つ、汽車を見送つた子供たちの上へばらばらと空から降つて来た。</blockquote><figcaption>―― 芥川『蜜柑』</figcaption></figure>
+<p>「暖な日の色」の蜜柑は、弟たちへの小娘の思いと、それを目にした「私」の心がほどけていく様子を、色と動きで見せています。</p>
+<h2>情景描写は、一対一で決めつけない</h2>
+<p>風景や天気が人物の心を映すことはありますが、「曇り空＝不安」「夕焼け＝さびしさ」と<b>一対一で決めつけない</b>ことが大切です。情景から読める心情は、<b>人物の言葉や動作で裏づけが取れる範囲</b>までにします。</p>
+<blockquote>同じものが2回描かれたら、並べて比べましょう。波の音、風の感触、空の色が前と後でどう変わったかが、心の変化を語っていることがあります。</blockquote>
+<h2>色・音・匂い</h2>
+<p>色彩や<a href="./?w=%E4%BA%94%E6%84%9F%E3%81%AE%E6%8F%8F%E5%86%99">五感の描写</a>は、場面を<b>印象に残す</b>はたらきをします。選択肢に「色彩の<a href="./?w=%E5%AF%BE%E6%AF%94">対比</a>によって」とあれば、本当に二つの色が並んでいるかを確かめ、次に、その対比が何と何の対比なのかを本文で見ます。色の指摘が正しくても、「人物の心情が高揚していく」と効果を足していれば、その心情が本文にあるかを確かめなければなりません。</p>
+<a class="backtop" href="#top">↑ 目次へ</a></section>
+<section class="chap" id="katari"><h2>語りと時間を読む — 視点・回想・呼び方</h2>
+<p>小説の表現問題では、「何が書かれているか」だけでなく、「<b>誰が、いつの時点から語っているか</b>」も問われます。語りの仕組みは、本文での回数は少ないのに、設問ではよく問われるところです。</p>
+<h2>視点：まず確かめる二つ</h2>
+<ul><li><b>語り手は誰か</b>　「私」「僕」が語るのか、語り手が作中にいないのか</li><li><b>誰の内面まで書かれているか</b>　心の中が書かれる人物と、外から見られるだけの人物を分ける</li></ul>
+<p><a href="./?w=%E8%A6%96%E7%82%B9%E4%BA%BA%E7%89%A9">視点人物</a>の外にいる人の気持ちは、本文にそのまま書かれていません。「〜は内心では…と思っている」と、外から見られるだけの人物の心を言い切った選択肢は疑います。</p>
+<p>漱石『こころ』は、冒頭で語り手の立場をはっきり示します。</p>
+<figure class="ex"><blockquote>私はその人を常に先生と呼んでいた。だからここでもただ先生と書くだけで本名は打ち明けない。</blockquote><figcaption>―― 漱石『こころ』</figcaption></figure>
+<p>「ここでも」「書く」とあるので、語り手の「私」が、過去を<b>書いている今の時点</b>にいることが分かります。</p>
+<h2>回想：今と昔、どちらの声か</h2>
+<table><thead><tr><th>目印</th><th>例</th></tr></thead><tbody><tr><td>時を示す語</td><td>「その頃」「あの時分」「〜年前」</td></tr><tr><td>文末の変化</td><td>過去形の中に、現在形が混じる</td></tr><tr><td>今の評価の声</td><td>語り手が、当時の自分を振り返って評する</td></tr></tbody></table>
+<p><a href="./?w=%E5%9B%9E%E6%83%B3">回想</a>の選択肢でよくある誤りは、「今の視点から語られている」という正しい指摘のあとに、「<b>後悔</b>している」「<b>自嘲</b>している」と、本文にない心情を足すものです。後悔・反省・自嘲の言葉が本文にあるかを確かめましょう。</p>
+<h2>呼び方が変わったら、距離が変わった</h2>
+<p>同じ人物を指す言葉が変わるところは、人と人の距離が変わったところです。</p>
+<ul><li>物の名前から人の名前へ（「塊り」→「頭」→「体」）：ものが、命ある人として見えてくる</li><li>地の文と会話で呼び方が違う（「祖父」と「おじいちゃん」）：会話の中の親しさ</li><li>突き放した呼び方（「あいつ」「この女」）：苛立ちや、距離をおいて眺める目</li></ul>
+<blockquote>「わざとその呼び方をした」と言う選択肢には要注意。本文の前のほうに、もともとそう呼んでいたと書かれていないかを探しましょう。</blockquote>
+<h2>記号と文の形</h2>
+<table><thead><tr><th>形</th><th>はたらきの例</th></tr></thead><tbody><tr><td>――（ダッシュ）</td><td>間をおいて話題や視点を切り替える。言いかけてやめる</td></tr><tr><td>……（三点リーダー）</td><td>言葉にしきれない気持ち。ただし「どう読んでもよい」という意味ではない</td></tr><tr><td>短い一文</td><td>長い説明のあとに置いて、そこを際立たせる</td></tr><tr><td>くり返し</td><td>同じ語が、心の揺れや思いの強さをくり返し示す</td></tr></tbody></table>
+<p>記号の問題は、記号の<b>前と後で、誰の・いつのことに変わったか</b>を確かめると解けます。</p>
+<a class="backtop" href="#top">↑ 目次へ</a></section>
+<section class="chap" id="tejun"><h2>本番の手順 — 問いの向き・印のつけ方・確かめ方</h2>
+<p>最後に、試験本番での手順をまとめます。読むときに印をつけておけば、設問を見たときに本文へすぐ戻れます。</p>
+<h2>読むときの印</h2>
+<table><thead><tr><th>対象</th><th>印</th></tr></thead><tbody><tr><td>比喩</td><td>何を、何にたとえたかを余白に書きこむ</td></tr><tr><td>もの</td><td>何度も出るものを丸で囲む（象徴の候補）</td></tr><tr><td>情景</td><td>同じものの2回目を線でつなぐ</td></tr><tr><td>時間</td><td>今と昔の切れ目に縦線を入れる</td></tr><tr><td>呼び方</td><td>同じ人の違う呼び名に下線を引く</td></tr></tbody></table>
+<h2>解くときの手順</h2>
+<ul><li><b>問いの向きに丸をつける</b>　適当なものか、適当でないものか。一つか、二つか</li><li><b>選択肢を指摘と効果に切る</b>　「〜ことで」「〜によって」のところで切る</li><li><b>指摘は本文にあるか</b>　技法の名前、引用された言葉、行の位置を確かめる</li><li><b>効果は本文で言えるか</b>　表しているものが本文の事実で裏づくか。心情語が足されていないか</li></ul>
+<h2>時間がないときは</h2>
+<p>選択肢の<b>後半</b>から読みます。「〜を表している」「〜を暗示している」の部分に、本文にない心情語や強い語があれば、その選択肢は切れます。そのうえで、残った選択肢の指摘を本文で確かめます。</p>
+<blockquote>表現の問題は、最後に回して時間切れになりやすい設問です。でも、指摘と効果に切る手順を身につければ、本文に戻る場所がはっきりするので、短い時間で解けるようになります。</blockquote>
+<h2>演習へ</h2>
+<p>この道場の<b>効果の演習</b>は、8単元・各10問です。比喩、<a href="./?w=%E6%93%AC%E4%BA%BA%E6%B3%95">擬人法</a>と<a href="./?w=%E8%B1%A1%E5%BE%B4">象徴</a>、情景、視点、<a href="./?w=%E5%9B%9E%E6%83%B3">回想</a>、呼び方、文の形の順に一つずつ練習し、最後の「総合」で、共通テストと同じ「適当でないものを選べ」型に挑戦してください。間違えた問題は「苦手ボックス」に入るので、日を置いて解き直しましょう。</p>
+<a class="backtop" href="#top">↑ 目次へ</a></section>
+  <footer style="text-align:center;font-size:.8rem;color:var(--ink-soft);margin-top:40px;line-height:1.9">表現問題の読み方 — 本文はすべて独自に作成しています。<br>引用は青空文庫に収められた、著作権の切れた作品によります。</footer>
+</div></div>
+<script src="riyou.js" data-site="hyogen"></script>
+</body>
+</html>
